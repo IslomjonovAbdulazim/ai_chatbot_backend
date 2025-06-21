@@ -74,6 +74,11 @@ async def google_login(auth: GoogleAuth, db: Session = Depends(get_db)):
     return {"access_token": access_token, "token_type": "bearer"}
 
 
+@router.get("/auth/verify", response_model=UserProfile)
+async def verify_token(current_user: User = Depends(get_current_user)):
+    return current_user
+
+
 # Chat Routes
 @router.get("/chats", response_model=List[ChatResponse])
 async def get_chats(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
