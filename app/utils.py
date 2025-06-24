@@ -1,10 +1,11 @@
+import os
 from openai import OpenAI
 from sqlalchemy.orm import Session
 from datetime import date
 from app.config import OPENAI_API_KEY
 from app.models import Usage
 
-# Initialize OpenAI client with new syntax
+# Initialize OpenAI client (latest API)
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 
@@ -16,10 +17,12 @@ def count_tokens(text: str) -> int:
 async def chat_with_ai(messages: list) -> tuple[str, int, int]:
     """Send messages to OpenAI and return response with token counts"""
     try:
-        # Use new OpenAI client syntax
+        # Use the Chat Completions API (2025 best practice)
         response = client.chat.completions.create(
             model="gpt-4o-mini",
-            messages=messages
+            messages=messages,
+            temperature=0.7,
+            max_tokens=2048
         )
 
         content = response.choices[0].message.content
@@ -27,7 +30,9 @@ async def chat_with_ai(messages: list) -> tuple[str, int, int]:
         output_tokens = response.usage.completion_tokens
 
         return content, input_tokens, output_tokens
+
     except Exception as e:
+        print(f"OpenAI API Error: {e}")
         raise Exception(f"OpenAI API error: {str(e)}")
 
 
