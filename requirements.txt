@@ -1,11 +1,33 @@
+# FastAPI and Server
 fastapi==0.104.1
-uvicorn==0.24.0
+uvicorn[standard]==0.24.0
+
+# Database
 sqlalchemy==2.0.23
+alembic==1.13.1
+
+# Authentication & Security
 python-jose[cryptography]==3.3.0
 google-auth==2.25.2
-openai>=1.52.0
 python-multipart==0.0.6
-alembic==1.13.1
+
+# HTTP Client (Modern replacement for requests)
+httpx>=0.25.0
+
+# OpenAI (Latest version)
+openai>=1.52.0
+
+# Environment & Configuration
 python-dotenv==1.0.0
+
+# Legacy HTTP support (if needed)
 requests==2.31.0
-httpx>=0.23.0
+
+# Development & Monitoring
+pydantic>=2.0.0
+typing-extensions>=4.0.0
+
+# Optional: For production deployment
+gunicorn>=21.0.0
+psycopg2-binary>=2.9.0  # For PostgreSQL
+redis>=5.0.0  # For advanced rate limiting
