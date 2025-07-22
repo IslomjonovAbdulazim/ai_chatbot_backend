@@ -63,8 +63,12 @@ app = FastAPI(
 
 # Security Middleware
 app.add_middleware(
-    TrustedHostMiddleware,
-    allowed_hosts=["*"]  # Configure appropriately for production
+    CORSMiddleware,
+    allow_origins=["*"],  # Allow all origins
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+    expose_headers=["X-Total-Count", "X-Rate-Limit-Remaining"]
 )
 
 # CORS Middleware with enhanced configuration
